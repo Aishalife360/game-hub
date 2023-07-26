@@ -10,7 +10,7 @@ interface FetchResponse <T>{
 }
 
 const useData = <T>(endpoint: string) => {
-  const [Data, setData] = useState<T[]>([]);
+  const [data, setData] = useState<T[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
 
@@ -19,7 +19,7 @@ const useData = <T>(endpoint: string) => {
 
     setLoading(true);
     apiClient
-      .get<FetchResponse <T>>(endpoint, {signal: controller.signal})
+      .get<FetchResponse<T>>(endpoint, {signal: controller.signal})
       .then((res) => {
         setData(res.data.results);
         setLoading(false);
@@ -33,7 +33,7 @@ const useData = <T>(endpoint: string) => {
     return () => controller.abort();
   }, []);
 
-  return {Data,  error, isLoading };
+  return {data,  error, isLoading };
 };
 
 export default useData;
